@@ -69,6 +69,7 @@ function onMove(event) {
         gStartPos = pos;
         changeTextPos(dx, dy);
         renderText();
+        drawLineBorders(); /////////////////////////
     }
 }
 
@@ -147,6 +148,7 @@ function clearCanvas() {
 function onUpdateText(val) {
     updateMemeText(val);
     renderText();
+    drawLineBorders(); ///////////////
 }
 
 function renderText() {
@@ -159,8 +161,9 @@ function onChangeTextSize(isIncrease) {
     if (isIncrease) increaseTextSize();
     else decreaseTextSize();
     renderText();
+    drawLineBorders();
 }
-
+// relic from the past not in current use:
 function onMoveLine(isUp) {
     if (isUp) moveTextUp();
     else moveTextDown();
@@ -171,12 +174,14 @@ function onNewLineInput() {
     document.querySelector('#upper-text').value = '';
     createNewLine(undefined, getCanvasMeasures()); // WATCHOUT 
     setCurrLine(); // WATCHOUT 
+    renderText();
+    drawLineBorders(); ///////////////
 }
 
 function onSwitchLine() {
     setCurrLine(); // WATCHOUT 
     renderText();
-    drawLineBorders();
+    drawLineBorders(); ///////////////////
 }
 
 function onSetFont(font) {

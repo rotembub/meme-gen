@@ -164,10 +164,11 @@ function changeTextPos(x, y) {
     currLine.pos.x += x;
     currLine.pos.y += y;
 }
-
+// relic from the past not in current use:
 function moveTextUp() {
     getSelectedLine().pos.y -= 5;
 }
+// relic from the past not in current use:
 function moveTextDown() {
     getSelectedLine().pos.y += 5;
 }
