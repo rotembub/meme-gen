@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme-gen</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body onload="onInit()">
+    <div class="mobile-screen" onclick="onToggleMenu()"></div>
+    <div class="container">
+        <header class="layout">
+            <div class="logo"></div>
+            <div class="burger-menu" onclick="onToggleMenu()"></div>
+            <div class="header-inner-container">
+                <h2 class="h-gallery pressed" onclick="onMarkHeadings('gallery')" data-trans="gallery">Gallery</h2>
+                <h2 class="h-memes" onclick="onMarkHeadings('memes')" data-trans="memes">Memes</h2>
+                <select class="bg-info" onchange="onSetLang(this.value)">
+                    <option value="en">English</option>
+                    <option value="he">עברית</option>
+                </select>
+            </div>
+        </header>
+        <section class="meme-editor">
+            <button class="btn-close-editor" onclick="onCloseEditor(this.parentElement)">X</button>
+            <div class="editor-container">
+                <div class="canvas-container">
+                    <canvas id="canvas" height="500" width="500"></canvas>
+                </div>
+                <div class="control-box">
+                    <div class="line-input">
+                        <input type="text" id="upper-text" name="upper-text" data-trans="input"
+                            placeholder="Enter Text Here" oninput="onUpdateText(this.value)">
+                    </div>
+                    <div class="edit-btns">
+                        <button class="add-line" onclick="onNewLineInput()"></button>
+                        <button class="switch-lines" onclick="onSwitchLine()"></button>
+                        <button class="delete-line" onclick="onDeleteLine()"></button>
+                        <button class="increase-size" onclick="onChangeTextSize(true)"></button> <button
+                            class="decrease-size" onclick="onChangeTextSize(false)"></button>
+                    </div>
+                    <div class="movement-container">
+                        <button class="align-left" onclick="onAlignLines('left')"></button>
+                        <button class="align-center" onclick="onAlignLines('center')"></button>
+                        <button class="align-right" onclick="onAlignLines('right')"></button>
+                        <select class="font-selector" onchange="onSetFont(this.value)">
+                            <option value="Impact">Impact</option>
+                            <option value="Arial">Arial</option>
+                            <option value="Verdana">Verdana</option>
+                        </select>
+                        <!-- <label class="color-input-label" for="color-input"></label> -->
+                        <input class="color-input-btn" type="color" id="color-input" name="color-input"
+                            onchange="onSetColor(this.value)">
+                    </div>
+                    <div class="media-container">
+                        <a href="#" class="download-btn" onclick="onDownloadImg(this)" data-trans="download" download="meme.jpg">Download</a>
+                        <label for="file-upload" data-trans="upload">Upload</label>
+                        <input type="file" id="file-upload" class="file-input btn" name="image"
+                            onchange="onUpload(event)" />
+                        <button class="share-facebook" onclick="uploadImg()"></button>
+                        <div class="share-container"></div>
+                    </div>
+                    <div class="stickers-control">
+                        <button onclick="onShowNext(false)">⬅</button>
+                        <div class="stickers-container"></div>
+                        <button onclick="onShowNext(true)">➡</button>
+                    </div>
+                    <div class="font-container"></div>
+                </div>
+            </div>
+        </section>
+        <main class="layout">
+            <section class="search-bar">
+                <div class="input-container">
+                    <input type="search" class="search-input" name="search-bar-input" id="search-bar-input"
+                        placeholder="Search" data-trans="search" oninput="onSetSearchBy(this.value)">
+                </div>
+                <div class="words-container">
+                    <div class="keywords"></div>
+                    <button class="btn-more" onclick="onRevealKeyWords()" data-trans="more">More</button>
+                </div>
+            </section>
+            <div class="img-gallery"></div>
+        </main>
+        <footer class="layout">
+            <h2 data-trans="copyrights">©Coffeerights 2021</h2>
+        </footer>
+    </div>
+
+    <script src="js/services/storage.services.js"></script>
+    <script src="js/services/i18n.services.js"></script>
+    <script src="js/services/meme.services.js"></script>
+    <script src="js/services/share.services.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/main.js"></script>
+</body>
+ 
+</html>
