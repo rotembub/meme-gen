@@ -1,0 +1,183 @@
+
+.meme-editor {
+    grid-area: main;
+    position: relative;
+    display: none;
+    background: linear-gradient(90deg, rgba(0,36,17,1) 0%, #129EAD 0%, #2CB77B 100%);
+    direction:ltr !important;
+}
+
+.editor-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+.control-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+.canvas-container {
+    display: flex;
+    justify-content: center;
+}
+
+canvas {
+    display: block;
+    margin: 0;
+    background-color: white;
+}
+
+.opened {
+    display: block;
+}
+
+.btn-close-editor {
+    position: absolute;
+    top: 1%;
+    right: 1%;
+}
+/* control buttons */
+.lower-text {
+    visibility: hidden;
+}
+.line-input {
+    display: flex;
+    flex-direction: column;
+}
+.edit-btns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.movement-container {
+    display: flex;
+}
+
+.media-container {
+    display: flex;
+    justify-content: center;
+}
+.media-container a:not(.share-container a) {
+    height: 50px;
+    border: black solid 3px;
+    padding-top: 10px;
+    text-decoration: none;
+    color: white;
+    padding-right: 5px;
+    padding-left: 5px;
+    border-radius: 15px;
+}
+.media-container .download-btn {
+    background-color: rgb(153, 13, 153);
+}
+.file-input {
+    display: none;
+}
+.control-box label {
+    display: inline-block;
+    border: black solid 3px;
+    height: 50px;
+    padding-top: 10px;
+    color: white;
+    padding-right: 5px;
+    padding-left: 5px;
+    border-radius: 15px;
+    background-color: coral;
+}
+
+.control-box button {
+    cursor:pointer;
+}
+.control-box button {
+    background-size: cover;
+    background-color: transparent;
+    /* border: none; */
+    height: 50px;
+    width: 50px;
+    border-radius: 15px;
+}
+/* burger-menu support */
+.mobile-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .25);
+    cursor: pointer;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .6s;
+}
+body.menu-open .mobile-screen {
+    pointer-events: auto;
+    opacity: 1;
+}
+.stickers-container {
+    border: white solid 1px;
+}
+.stickers-container span {
+    font-size: xx-large;
+}
+.stickers-container span:hover {
+    cursor: pointer;
+}
+.stickers-container span:not(:last-of-type) {
+    border-right:white solid 1px;
+}
+.stickers-control {
+    display: flex;
+}
+.color-input-btn {
+    height: 50px;
+    border-radius: 15px;
+}
+.font-selector {
+    border-radius: 15px;
+    color: white;
+    background-color: transparent;
+}
+.font-selector >* {
+    color: black;
+    background-color: transparent;
+}
+
+.align-right {
+    background-image: url(../ICONS/align-to-right.png);
+} 
+.align-left {
+    background-image: url(../ICONS/align-to-left.png);
+}
+.align-center {
+    background-image: url(../ICONS/center-text-alignment.png);
+}
+.switch-lines {
+    background-image: url(../ICONS/up-and-down-opposite-double-arrows-side-by-side.png);
+}
+.delete-line {
+    background-image: url(../ICONS/trash.png);
+}
+.decrease-size {
+    background-image: url(../ICONS/decrease\ font\ -\ icon.png);
+}
+.increase-size {
+    background-image: url(../ICONS/increase\ font\ -\ icon.png);
+}
+button.share-facebook {
+    background-image: url(../ICONS/facebook-logo.png);
+    background-color: rgb(81, 161, 253);
+}
+button.move-up {
+    background-image: url(../ICONS/arrow-up.png);
+    background-color: transparent;
+}
+button.move-down {
+    background-image: url(../ICONS/arrow-down.jpg);
+}
+.add-line {
+    background-image: url(../ICONS/add.png);
+}
