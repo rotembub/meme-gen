@@ -7,7 +7,7 @@ var gCurrImage;
 var gSavedMemes;
 var gSearchBy;
 var gIsSearching = false;
-var gWordsRevealed;
+var gWordsRevealed = false;
 var gStartPos;
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend'];
 
@@ -24,7 +24,7 @@ function loadSavedMemes() {
     var memes = loadFromStorage('savedMemes');
     console.log(memes);
     if (!memes) return [];
-    else return memes;
+    return memes;
 }
 
 // click and drag functions:
@@ -75,7 +75,6 @@ function onMove(event) {
 function onUp(event) {
     gIsClicked = false;
     document.body.style.cursor = 'auto';
-    // var pos = getEvPos(event);
 }
 
 function getEvPos(ev) {
@@ -83,7 +82,6 @@ function getEvPos(ev) {
         x: ev.offsetX,
         y: ev.offsetY
     }
-    console.log(pos); /////////////
     if (gTouchEvs.includes(ev.type)) {
         console.log(ev);
         ev.preventDefault()
@@ -92,9 +90,6 @@ function getEvPos(ev) {
             x: ev.pageX - ev.target.offsetLeft - ev.target.offsetParent.offsetLeft,  // did these changes on saturday 9pm hopefully didnt break the code
             y: ev.pageY - ev.target.offsetTop - ev.target.offsetParent.offsetTop    // there was problems locating touches on the canvas
         }
-        // these were the original units which worked up untill i changed CSS and everything went off course with touch locations
-        // console.log('x',ev.pageX , ev.target.offsetLeft , ev.target.clientLeft);
-        // console.log('y',ev.pageY , ev.target.offsetPare , ev.target.clientTop);
     }
     console.log(pos);
     return pos
@@ -207,24 +202,25 @@ function onDownloadImg(elAnchor) {
     gSavedMemes.push(elAnchor.href);
     saveToStorage('savedMemes', gSavedMemes);
 }
-// prototype: 
+
 function initialText() {
     var meme = getMeme();
-    for (var i = 0; i < meme.lines.length; i++) {
-        setLineLength(i, gCtx.measureText(meme.lines[i].txt).width);
-        var x = meme.lines[i].pos.x;
-        var y = meme.lines[i].pos.y;
+    meme.lines.forEach(line => {
+        gCtx.font = `${line.size}px ${line.font}`; // this first so the line width would be correct
+        setLineLength(line, gCtx.measureText(line.txt).width);
+        var x = line.pos.x;
+        var y = line.pos.y;
         gCtx.shadowBlur = 0;
         gCtx.lineWidth = 2;
         gCtx.strokeStyle = 'black';
-        gCtx.fillStyle = `${meme.lines[i].color}`;
-        gCtx.font = `${meme.lines[i].size}px ${meme.lines[i].font}`;
-        gCtx.fillText(meme.lines[i].txt, x, y);
-        gCtx.strokeText(meme.lines[i].txt, x, y);
-    }
+        gCtx.fillStyle = `${line.color}`;
+        gCtx.fillText(line.txt, x, y);
+        gCtx.strokeText(line.txt, x, y);
+    });
 }
 
-function drawLineBorders() { // get back to the bug later
+
+function drawLineBorders() {
     var selectedLine = getSelectedLine();
     gCtx.font = selectedLine.font;
     gCtx.beginPath();
@@ -276,14 +272,22 @@ function displayKeyWords() {
     document.querySelector('.keywords').innerHTML = strHTML;
     if (gWordsRevealed) onRevealKeyWords();
 }
-// REMINDER: i could set invisible in CSS to all spans except for like 4 and when a button is pressed it gives visible to all.
-// UPDATE: didnt work taking extra space and ruins design
-function onRevealKeyWords() {
-    gWordsRevealed = true;
-    var elSpans = document.querySelectorAll('.search-bar .keywords span');
-    elSpans.forEach(elSpan => {
-        elSpan.classList.add('reveal');
-    });
+
+function onRevealKeyWords(elBtn) {
+    if (gWordsRevealed) {
+        var elSpans = document.querySelectorAll('.search-bar .keywords span');
+        elSpans.forEach(elSpan => {
+            elSpan.classList.add('reveal');
+        });
+        elBtn.innerText = 'Less';
+    } else {
+        elBtn.innerText = 'More';
+        displayKeyWords();
+    }
+}
+function onMoreLessKeywords(elBtn) {
+    gWordsRevealed = !gWordsRevealed;
+    onRevealKeyWords(elBtn);
 }
 
 function onIncreaseFont(word) {
@@ -291,14 +295,14 @@ function onIncreaseFont(word) {
     displayKeyWords();
     onSetSearchBy(word);
 }
-
+// giving canvas size to other functions to create proper line lengths
 function getCanvasMeasures() {
     if (window.innerWidth <= 850) {
         return { width: 250, height: 250 };
     }
     return { width: 500, height: 500 };
 }
-
+// setting canvas size:
 function setCanvasMeasures() {
     if (window.innerWidth <= 850) {
         if (gElCanvas.width === 250) return; //WATCHOUT
@@ -343,7 +347,6 @@ function onSetLang(lang) {
     else elBody.classList.remove('hebrew');
     onTranslate();
 }
-
 
 function onTranslate() {
     var elements = document.querySelectorAll('[data-trans]');

@@ -136,7 +136,7 @@ function _createNewMeme() {
     return newMeme;
 }
 
-function setCurrMemeImg(id) { 
+function setCurrMemeImg(id) {
     gMeme.selectedImgId = id;
 }
 function updateMemeText(text) {
@@ -201,9 +201,10 @@ function updateLineFont(font) {
 function updateLineColor(color) {
     getSelectedLine().color = color;
 }
-// problem in here, maybe caused by canvas size changes ,FIXED (i think)
-function setLineLength(lineIdx, length) {
-    gMeme.lines[lineIdx].lineLength = length;
+
+function setLineLength(line, length) {
+    console.log(line);
+    line.lineLength = length;
 }
 
 function isLineClicked(pos) {
@@ -257,6 +258,7 @@ function getKeyWords() {
 }
 
 function increaseRate(word) {
+    if (gKeywords[word] >= 25) return;
     gKeywords[word]++;
 }
 
@@ -273,4 +275,4 @@ function showNext(isNext) {
         if (gStickersIdx === 0) return;
         gStickersIdx--;
     }
-} 
+}
