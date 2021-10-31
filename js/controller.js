@@ -276,6 +276,7 @@ function displayKeyWords() {
     }
     document.querySelector('.keywords').innerHTML = strHTML;
     if (gWordsRevealed) onRevealKeyWords();
+    onTranslate();
 }
 
 function onRevealKeyWords(elBtn) {
@@ -283,6 +284,7 @@ function onRevealKeyWords(elBtn) {
         var elSpans = document.querySelectorAll('.search-bar .keywords span');
         elSpans.forEach(elSpan => {
             elSpan.classList.add('reveal');
+            onTranslate();
         });
         elBtn.innerText = 'Less';
     } else {
