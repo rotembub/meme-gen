@@ -113,6 +113,10 @@ var gTrans = {
         en: 'classic',
         he: 'קלאסי'
     },
+    less: {
+        en: 'Less',
+        he: 'פחות'
+    }
 };
 
 var gCurrLang = 'en';

@@ -279,22 +279,23 @@ function displayKeyWords() {
     onTranslate();
 }
 
-function onRevealKeyWords(elBtn) {
+function onRevealKeyWords() {
+    var elBtn = document.querySelector('.btn-more');
     if (gWordsRevealed) {
         var elSpans = document.querySelectorAll('.search-bar .keywords span');
         elSpans.forEach(elSpan => {
             elSpan.classList.add('reveal');
             onTranslate();
         });
-        elBtn.innerText = 'Less';
+        elBtn.innerText = getTrans('less');
     } else {
-        elBtn.innerText = 'More';
+        elBtn.innerText = getTrans('more');
         displayKeyWords();
     }
 }
 function onMoreLessKeywords(elBtn) {
     gWordsRevealed = !gWordsRevealed;
-    onRevealKeyWords(elBtn);
+    onRevealKeyWords();
 }
 
 function onIncreaseFont(word) {
@@ -367,6 +368,8 @@ function onTranslate() {
 function onMarkHeadings(pressed) {
     var elHeadingGallery = document.querySelector('.h-gallery');
     var elHeadingMemes = document.querySelector('.h-memes');
+    var elEditor = document.querySelector('.meme-editor'); ///////////////
+    onCloseEditor(elEditor); //////////////////////////////////////
     if (pressed === 'gallery') {
         renderImages();
         if (elHeadingGallery.classList.contains('pressed')) return;
